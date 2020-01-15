@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.ProjectInfoMapper">
+    <select id="findAll" resultType="ProjectInfo" parameterType="int">
+         SELECT * FROM projectinfo LIMIT #{from},#{pagesize}
+    </select>
+    
+    <select id="count" resultType="int">
+         SELECT COUNT(1) FROM projectinfo;
+    </select>
+    
+    <update id="updateStatus" parameterType="ProjectInfo">
+         UPDATE projectinfo SET `status`=#{status} 
+         WHERE id=#{id}
+    </update>
+    
+    <select id="getById" resultType="ProjectInfo" parameterType="int">
+        select * from projectinfo where id=#{id}
+    </select>
+</mapper>
