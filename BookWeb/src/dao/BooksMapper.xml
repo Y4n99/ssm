@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.BooksMapper">
+	<select id="count" resultType="int">
+		SELECT COUNT(1) FROM books
+	</select>
+
+	<select id="findAll" resultType="Books">
+		SELECT * FROM books LIMIT
+		#{pagenum},#{pagesize}
+	</select>
+
+	<select id="findByCondition" resultType="Books">
+		SELECT * FROM books
+		<where>
+			<if test="bookName!=null">
+				bookName like CONCAT('%',#{bookName},'%')
+			</if>
+			<if test="bookAuthor!=null">
+				bookAuthor like CONCAT('%',#{bookAuthor},'%')
+			</if>
+			<if test="bookPublish!=null">
+				bookPublish like CONCAT('%',#{bookPublish},'%')
+			</if>
+		</where>
+		LIMIT #{pagenum},#{pagesize}
+	</select>
+
+	<select id="Bycount" resultType="int">
+		SELECT count(1) FROM books
+		<where>
+			<if test="bookName!=null">
+				bookName like CONCAT('%',#{bookName},'%')
+			</if>
+			<if test="bookAuthor!=null">
+				bookAuthor like CONCAT('%',#{bookAuthor},'%')
+			</if>
+			<if test="bookPublish!=null">
+				bookPublish like CONCAT('%',#{bookPublish},'%')
+			</if>
+		</where>
+	</select>
+
+	<insert id="addBooks" parameterType="Books">
+		INSERT INTO books
+		VALUE(NULL,#{bookName},#{bookAuthor},#{bookPublish},#{bookPage},#{bookPrice},NOW());
+	</insert>
+</mapper>
